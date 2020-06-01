@@ -1,0 +1,18 @@
+version: 1
+disable_existing_loggers: false
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: color_string
+    stream: ext://sys.stdout
+    level: INFO
+formatters:
+  color_string:
+    (): illuin_logging.formatters.ColorStringFormatter
+root:
+  level: 0
+  handlers:
+    - console
+#loggers:
+#  transformers:
+#    level: WARNING

@@ -1,0 +1,10 @@
+logging: !import logging.yml
+
+clean:
+  (): better_id3.commands.CleanCommand
+  directory: "D:\\Aymeric\\Musique"
+  blacklist: "AlbumArtSmall\\.jpg|AlbumArt_.*\\.jpg|Folder\\.jpg|Thumbs\\.db|desktop\\.ini"
+  cover:
+    - "cover.jpg"
+    - "Cover.jpg"
+    - "front.jpg"
