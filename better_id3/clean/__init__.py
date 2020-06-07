@@ -1,2 +1,2 @@
-from .clean_blacklist import CleanBlacklist
-from .clean_cover import CleanCover
+from .file_name_blacklist import FileNameBlacklist
+from .check_cover import EachDirectoryShouldHaveACover

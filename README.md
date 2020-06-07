@@ -19,7 +19,7 @@ pylint --load-plugins pylint_quotes better_id3
 ```
 
 We use [SemVer](http://semver.org/) for versioning. 
-For the versions available, see the [tags on this repository](https://gitlab.illuin.tech/data-science/ner-module/-/tags). 
+For the versions available, see the [releases](https://github.com/AymericBebert/Better-ID3/releases).
 
 ## License
 
