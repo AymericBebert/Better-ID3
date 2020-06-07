@@ -2,9 +2,8 @@ import logging
 import logging.config
 
 import fire
-from configue import load_config_from_file
-
-LOGGER = logging.getLogger(__name__)
+import yaml
+from configue import load_config_from_dict
 
 
 class CLI:
@@ -12,24 +11,26 @@ class CLI:
 
         ---------------
         examples:
-            >>> python -m better_id3 --help
+            $ python -m better_id3 --help
+            $ python -m better_id3 clean --directory=/Users/John/Music
     """
 
-    def clean(self, config_path: str = "configs/config.yml", **kwargs):
-        self._run_command(config_path, "clean", **kwargs)
+    def __init__(self, config_path: str = "config.yml") -> None:
+        with open(config_path, encoding="utf-8") as config_file:
+            config_dict = yaml.load(config_file, Loader=yaml.FullLoader)
+        if "logging" in config_dict:
+            logging.config.dictConfig(config_dict["logging"])
+        self.config = load_config_from_dict(config_dict)
 
-    @staticmethod
-    def _run_command(config_path: str, command_name: str, **kwargs):
-        config = load_config_from_file(config_path)
-        if "logging" in config:
-            logging.config.dictConfig(config["logging"])
-        command = config[command_name]
+    def clean(self, **kwargs):
+        self._run_command("clean", **kwargs)
+
+    def _run_command(self, command_name: str, **kwargs):
+        command = self.config[command_name]
         for k, v in kwargs.items():
             setattr(command, k, v)
         command.run()
 
 
 if __name__ == "__main__":
-    # starting the Command Line Interface
-    LOGGER.info(f"starting {CLI.__name__}")
     fire.Fire(CLI)
